@@ -14,7 +14,9 @@ class EasyExcel:
           if filename:
               self.filename = filename
               #print(self.xlApp.__dict__)
+              start_time = time.time()
               self.xlBook = self.xlApp.Workbooks.Open(filename)
+              print("self.xlApp.Workbooks.Open time", time.time() - start_time)
           else:
               self.xlBook = self.xlApp.Workbooks.Add()
               self.filename = ''
@@ -169,9 +171,9 @@ class EasyExcel:
             for v in a:
               re.append(v)
             #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
-            #print("GetRows3.i des N", i, des, N)
+            print("GetRows3.i des N", i, des, N)
             i = des+1
-            
+
         elif self.active_sheet:
           used_row_num = self.UsedRowCount()
           used_col_num = self.UsedColCount()
@@ -182,10 +184,14 @@ class EasyExcel:
               des = i + N
             else:
               des = used_row_num
+            start_time = time.time()
             a = self.GetRange(i , 1, des, used_col_num)
+            print("self.GetRange time", time.time() - start_time)
             #print("GetRows3.a", a, "\r\n")
+            start_time = time.time()
             for v in a:
               re.append(v)
+            print("for v in a time", time.time() - start_time)
             #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
             #print("GetRows3.i des N", i, des, N)
 
@@ -201,10 +207,11 @@ class EasyExcel:
         print("GetRows4.len(re)", len(re))
         #print("GetRows4.re", re)
         re2 = []    
+        start_time = time.time()
         for i in re:
           b = i + (int(time.mktime(time.strptime(i[0],'%Y-%m-%d %H:%M:%S'))),)
           re2.append(b)
-
+        print("for i in re: time", time.time() - start_time)
         return re2
 
 #==============================================================================
