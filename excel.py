@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from win32com.client import Dispatch
 import win32com.client
+import time
 
 class EasyExcel:
       """A utility to make it easier to get at Excel.    Remembering
@@ -90,17 +91,22 @@ if __name__ == "__main__":
 
       #PNFILE = r'c:\screenshot.bmp'
       xls = EasyExcel(r'N:\workspace\github\temp\test - 副本.xlsx')
-      i = 1
+      i = 4
       used_row_num = xls.UsedRowCount("Sheet1")
       used_col_num = xls.UsedColCount("Sheet1")
 
       re = []
       while i <= used_row_num:
-        #nonlocal i
-        re.append(xls.GetRange("Sheet1", i , 1, i, used_col_num)[0])
+        a = (xls.GetRange("Sheet1", i , 1, i, used_col_num)[0],)
+        print(a)
+        b = a + time.mktime(time.strptime(a[0],'%Y-%m-%d %H:%M:%S'))
+        re.append(b)
         #print(xls.GetRange("Sheet1", i , 1, i, used_col_num))
         i += 1
-      print(re[3:])
+      print(re)
+
+
+      #re = time.mktime(time.strptime(b,'%Y-%m-%d %H:%M:%S'))
       #print(xls.__dict__)
       #xls.Save()
       xls.Close()
