@@ -97,60 +97,6 @@ class EasyExcel:
           self.active_sheet = None
 
 
-      def GetRows(self, start=0, sheet=None):
-        re = []
-        i = start
-        if sheet:
-          used_row_num = self.UsedRowCount(sheet)
-          used_col_num = self.UsedColCount(sheet)
-          print(used_row_num, used_col_num)
-          while i < used_row_num:
-            a = self.GetRange(i , 1, i, used_col_num, sheet)[0]
-            re.append(a)
-            #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
-            i += 1
-        elif self.active_sheet:
-          used_row_num = self.UsedRowCount()
-          used_col_num = self.UsedColCount()
-          print(used_row_num, used_col_num)
-          while i < used_row_num:
-            a = self.GetRange(i , 1, i, used_col_num)[0]
-            re.append(a)
-            #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
-            i += 1
-
-        return re
-
-      def GetRows2(self, start=0, sheet=None):
-        "对返回数据做加工"
-        re = []
-        i = start
-        if sheet:
-          used_row_num = self.UsedRowCount(sheet)
-          used_col_num = self.UsedColCount(sheet)
-          print(used_row_num, used_col_num)
-          while i < used_row_num:
-            a = self.GetRange(i , 1, i, used_col_num, sheet)[0]
-            #print(a)
-            b = a + (int(time.mktime(time.strptime(a[0],'%Y-%m-%d %H:%M:%S'))),)
-            #print(b)
-            re.append(b)
-            #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
-            i += 1
-        elif self.active_sheet:
-          used_row_num = self.UsedRowCount()
-          used_col_num = self.UsedColCount()
-          print(used_row_num, used_col_num)
-          while i < used_row_num:
-            a = self.GetRange(i , 1, i, used_col_num)[0]
-            #print(a)
-            b = a + (int(time.mktime(time.strptime(a[0],'%Y-%m-%d %H:%M:%S'))),)
-            #print(b)
-            re.append(b)
-            #print(self.GetRange("Sheet1", i , 1, i, used_col_num))
-            i += 1
-
-        return re
 
       def GetRows3(self, N=1000,start=0, sheet=None):
         "一次取n个数据"
